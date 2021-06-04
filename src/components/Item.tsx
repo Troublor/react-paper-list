@@ -1,14 +1,28 @@
 import React from 'react';
 import {LiteratureEntry} from '../types';
 import {BsAwardFill} from 'react-icons/all';
-import {OverlayTrigger, Popover} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
+import {CopyBlock} from 'react-code-blocks';
 
 interface ItemProp {
     entry: LiteratureEntry // the literature entry
-    highlights: string[], // the list of strings which should be highlighted 
+    highlights: string[], // the list of strings which should be highlighted
 }
 
-export default class Item extends React.Component<ItemProp, never> {
+interface ItemState {
+    showBibtex: boolean;
+    showAbstract: boolean;
+}
+
+export default class Item extends React.Component<ItemProp, ItemState> {
+    constructor(prop: ItemProp) {
+        super(prop);
+
+        this.state = {
+            showAbstract: false,
+            showBibtex: false,
+        };
+    }
 
     get title(): string {
         return this.props.entry.title;
@@ -58,30 +72,22 @@ export default class Item extends React.Component<ItemProp, never> {
             <span className="me-1" key={`${this.props.entry.id}-${award}`}><BsAwardFill
                 color={'#de9a00'}/> {award}</span>);
 
-        const popover =(body: string, header?: string)=> (
-            <Popover id="popover-basic">
-                {header && <Popover.Header as="h3">{header}</Popover.Header>}
-                <Popover.Body>
-                    {body}
-                </Popover.Body>
-            </Popover>
-        );
-
         const paperUrl = this.props.entry.url ?
             <a href={this.props.entry.url} target="_blank" rel="noreferrer">
-                <button className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}}>Paper</button>
+                <button className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}}>Paper
+                </button>
             </a> :
             null;
         const bibtex = this.props.entry.bibtex ?
-            <OverlayTrigger trigger="click" placement="bottom" overlay={popover(this.props.entry.bibtex)}>
-                <button type="button" className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}}>BibTex</button>
-            </OverlayTrigger>
-            :
+            <button type="button" className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}} onClick={
+                () => this.setState({showBibtex: !this.state.showBibtex})
+            }>BibTex
+            </button> :
             null;
         const abstract = this.props.entry.abstract ?
-            <OverlayTrigger trigger="click" placement="bottom" overlay={popover(this.props.entry.abstract)}>
-                <button type="button" className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}}>Abstract</button>
-            </OverlayTrigger> :
+            <button className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}} onClick={
+                () => this.setState({showAbstract: !this.state.showAbstract})
+            }>Abstract</button> :
             null;
         const project = this.props.entry.project ?
             <a href={this.props.entry.project} target="_blank" rel="noreferrer">
@@ -89,22 +95,37 @@ export default class Item extends React.Component<ItemProp, never> {
             </a> :
             null;
 
+        const abstractCard = this.state.showAbstract && this.props.entry.abstract ?
+            <Card body className={'text-start'}>
+                <p className={'fw-bold'}>Abstract:</p>
+                {this.props.entry.abstract}
+            </Card> : null;
+        const bibtexCard = this.state.showBibtex && this.props.entry.bibtex ?
+            <Card body className={'text-start'}>
+                <p className={'fw-bold'}>BibTex:</p>
+                <CopyBlock text={this.props.entry.bibtex} showLineNumbers={false} language={'tex'} theme={'atomOneLight'} codeBlock/>
+            </Card> : null;
+
         return (
-            <div className="d-flex">
-                <div className="fw-bold" style={{width: '75px', wordWrap: 'break-word'}}>
-                    <div>{this.props.entry.venueShort}</div>
-                    <div>{this.year}</div>
+            <div className="mb-3">
+                <div className="d-flex mb-1">
+                    <div className="fw-bold me-2" style={{width: '75px', wordWrap: 'break-word'}}>
+                        <div>{this.props.entry.venueShort}</div>
+                        <div>{this.year}</div>
+                    </div>
+                    <div className="flex-grow-1 text-start">
+                        <span className="fw-bold">{title}</span>
+                        <ul style={{paddingLeft: '15px', marginBottom: 0}}>
+                            <li>{this.highlight(this.authors)}</li>
+                            <li><span>{this.venue}</span></li>
+                        </ul>
+                        {awards.length > 0 && awards}
+                        <div className="mb-1">{tags}</div>
+                        <div>{paperUrl}{abstract}{bibtex}{project}</div>
+                    </div>
                 </div>
-                <div className="flex-grow-1 text-start">
-                    <span className="fw-bold">{title}</span>
-                    <ul style={{paddingLeft: '15px', marginBottom: 0}}>
-                        <li>{this.highlight(this.authors)}</li>
-                        <li><span>{this.venue}</span></li>
-                    </ul>
-                    {awards.length > 0 && awards}
-                    <div className="mb-1">{tags}</div>
-                    <div>{paperUrl}{abstract}{bibtex}{project}</div>
-                </div>
+                {abstractCard}
+                {bibtexCard}
             </div>
         );
     }

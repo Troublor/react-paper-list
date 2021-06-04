@@ -14,19 +14,15 @@ export default class List extends React.Component<ListProp, never> {
             .map(entry => <Item entry={entry} highlights={this.props.highlights} key={entry.id}/>);
 
         return (
-            <Table className="text-center">
-                <tbody>
-                    {
-                        this.props.entryList.length > 0 ?
-                            items :
-                            <tr>
-                                <td className="text-center">
-                                Data not found
-                                </td>
-                            </tr>
-                    }
-                </tbody>
-            </Table>
+            <div className={'text-center'}>
+                {
+                    this.props.entryList.length > 0 ?
+                        items :
+                        <div className="text-center">
+                            Not Found
+                        </div>
+                }
+            </div>
         );
     }
 }
