@@ -1,6 +1,6 @@
 {
   "name": "react-paper-list",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "main": "lib/index.js",
   "module": "lib/index.es.js",
   "files": [
@@ -18,7 +18,7 @@
     "storybook": "start-storybook -p 6006",
     "storybook:export": "build-storybook",
     "eslint": "eslint src/**/* --fix",
-    "prepublish": "yarn eslint && yarn build"
+    "prepare": "yarn eslint && yarn build"
   },
   "peerDependencies": {
     "react": "^17.0.2",
