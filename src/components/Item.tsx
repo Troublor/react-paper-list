@@ -116,11 +116,11 @@ export default class Item extends React.Component<ItemProp, ItemState> {
         return (
             <div className="mb-3">
                 <div className="d-flex mb-1">
-                    <div className="fw-bold me-2" style={{width: '75px', wordWrap: 'break-word'}}>
+                    <div className="fw-bold me-2" style={{width: '75px', wordWrap: 'break-word', display: 'table'}}>
                         <div>{this.props.entry.venueShort}</div>
                         <div>{this.year}</div>
                     </div>
-                    <div className="flex-grow-1 text-start">
+                    <div className="flex-grow-1 text-start" style={{display: 'table'}}>
                         <span className="fw-bold">{title}</span>
                         <ul style={{paddingLeft: '15px', marginBottom: 0}}>
                             <li>{this.highlight(this.authors)}</li>
