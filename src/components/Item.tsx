@@ -72,8 +72,8 @@ export default class Item extends React.Component<ItemProp, ItemState> {
             <span className="me-1" key={`${this.props.entry.id}-${award}`}><BsAwardFill
                 color={'#de9a00'}/> {award}</span>);
 
-        const paperUrl = this.props.entry.url ?
-            <a href={this.props.entry.url} target="_blank" rel="noreferrer">
+        const paperUrl = this.props.entry.paperUrl ?
+            <a href={this.props.entry.paperUrl} target="_blank" rel="noreferrer">
                 <button className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}}>Paper
                 </button>
             </a> :
@@ -89,8 +89,8 @@ export default class Item extends React.Component<ItemProp, ItemState> {
                 () => this.setState({showAbstract: !this.state.showAbstract})
             }>Abstract</button> :
             null;
-        const project = this.props.entry.project ?
-            <a href={this.props.entry.project} target="_blank" rel="noreferrer">
+        const project = this.props.entry.projectUrl ?
+            <a href={this.props.entry.projectUrl} target="_blank" rel="noreferrer">
                 <button className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}}>Project</button>
             </a> :
             null;
@@ -103,8 +103,15 @@ export default class Item extends React.Component<ItemProp, ItemState> {
         const bibtexCard = this.state.showBibtex && this.props.entry.bibtex ?
             <Card body className={'text-start'}>
                 <p className={'fw-bold'}>BibTex:</p>
-                <CopyBlock text={this.props.entry.bibtex} showLineNumbers={false} language={'tex'} theme={'atomOneLight'} codeBlock/>
+                <CopyBlock text={this.props.entry.bibtex} showLineNumbers={false} language={'tex'}
+                    theme={'atomOneLight'} codeBlock/>
             </Card> : null;
+
+        const slidesUrl = this.props.entry.slidesUrl ?
+            <a href={this.props.entry.slidesUrl} target="_blank" rel="noreferrer">
+                <button className="me-1 btn btn-sm btn-outline-primary" style={{padding: '0.1rem'}}>Slides</button>
+            </a> :
+            null;
 
         return (
             <div className="mb-3">
@@ -121,7 +128,7 @@ export default class Item extends React.Component<ItemProp, ItemState> {
                         </ul>
                         {awards.length > 0 && awards}
                         <div className="mb-1">{tags}</div>
-                        <div>{paperUrl}{abstract}{bibtex}{project}</div>
+                        <div>{paperUrl}{abstract}{slidesUrl}{project}{bibtex}</div>
                     </div>
                 </div>
                 {abstractCard}

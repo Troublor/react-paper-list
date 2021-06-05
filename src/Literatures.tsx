@@ -42,7 +42,7 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
         defaultReverse: false,
     }
 
-    constructor(prop: LiteraturesProp) {
+    constructor(prop: LiteraturesProp) { 
         super(prop);
 
         const allVenues = _.uniq(this.props.entries.filter(e => e.venueShort).map(e => e.venueShort as string));

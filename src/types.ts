@@ -17,10 +17,11 @@ export interface LiteratureEntry {
     awards: string[];
 
     // links
-    url: string | null;
+    paperUrl: string | null;
     bibtex: string | null;
     abstract: string | null;
-    project: string | null;
+    projectUrl: string | null;
+    slidesUrl: string | null;
 }
 
 export type SortCriteria = 'title' | 'venue' | 'year' | 'author' | 'similarity';

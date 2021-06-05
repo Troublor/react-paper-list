@@ -1,6 +1,5 @@
 import React from 'react';
 import {LiteratureEntry} from '../types';
-import {Table} from 'react-bootstrap';
 import Item from './Item';
 
 interface ListProp {
