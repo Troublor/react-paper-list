@@ -111,7 +111,7 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
             case 'title':
                 flag = a.title < b.title ? -1 : 1;
                 break;
-            case 'year':
+            case 'date':
                 if (!a.date) flag = -1;
                 else if (!b.date) flag = 1;
                 else flag = a.date < b.date ? -1 : 1;
@@ -190,12 +190,12 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
         this.setState({reverse: event.target.checked});
     }
 
-    onFilterChoicesChange(name: 'tag' | 'year' | 'venue', selected: string[]): void {
+    onFilterChoicesChange(name: 'tag' | 'date' | 'venue', selected: string[]): void {
         switch (name) {
         case 'tag':
             this.setState({tags: selected});
             break;
-        case 'year':
+        case 'date':
             this.setState({years: selected});
             break;
         case 'venue':
@@ -230,7 +230,7 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
             {
                 this.state.allYears.length > 0 ?
                     <MultiChoices name="Year" choices={this.state.allYears}
-                        onChoicesChanged={(selected => this.onFilterChoicesChange('year', selected))}/> :
+                        onChoicesChanged={(selected => this.onFilterChoicesChange('date', selected))}/> :
                     null
             }
             {
@@ -259,8 +259,8 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
                     onClick={() => this.onSortCriterionChange('author')}>Author
                 </button>
                 <button type="button"
-                    className={`btn btn-sm ${this.state.sortCriterion === 'year' ? 'btn-primary' : 'btn-outline-primary'}`}
-                    onClick={() => this.onSortCriterionChange('year')}>Year
+                    className={`btn btn-sm ${this.state.sortCriterion === 'date' ? 'btn-primary' : 'btn-outline-primary'}`}
+                    onClick={() => this.onSortCriterionChange('date')}>Date
                 </button>
                 <button type="button"
                     className={`btn btn-sm ${this.state.sortCriterion === 'similarity' ? 'btn-primary' : 'btn-outline-primary'}`}

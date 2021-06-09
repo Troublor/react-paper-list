@@ -42,7 +42,7 @@ export const Primary = (): JSX.Element => <Literatures title={'Paper List'} desc
     },
     {
         id: '2',
-        title: 'This is the title of the paper',
+        title: 'This is the title of a paper',
         date: new Date(),
         type: 'Conference Paper',
         authors: [

@@ -24,4 +24,4 @@ export interface LiteratureEntry {
     slidesUrl: string | null;
 }
 
-export type SortCriteria = 'title' | 'venue' | 'year' | 'author' | 'similarity';
+export type SortCriteria = 'title' | 'venue' | 'date' | 'author' | 'similarity';
