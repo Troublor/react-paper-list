@@ -6,7 +6,7 @@ import Nbsp from './components/Nbsp';
 import _ from 'lodash';
 
 interface LiteraturesProp {
-    title: string, 
+    title: string,
     description: string,
     entries: LiteratureEntry[];
 
@@ -40,19 +40,20 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
         enableSort: false,
         defaultSortCriterion: 'title' as SortCriteria,
         defaultReverse: false,
-    }
+    };
 
-    constructor(prop: LiteraturesProp) { 
+    constructor(prop: LiteraturesProp) {
         super(prop);
 
-        const allVenues = _.uniq(this.props.entries.filter(e => e.venueShort).map(e => e.venueShort as string));
+        const allVenues = _.uniqWith(this.props.entries.filter(e => e.venueShort).map(e => e.venueShort as string), (a, b) => a.toLowerCase() === b.toLowerCase()).sort();
         allVenues.push('No Venue');
-        const allYears = _.uniq(this.props.entries.filter(e => e.date).map(e => (e.date as Date).getFullYear().toString()));
+        const allYears = _.uniq(this.props.entries.filter(e => e.date).map(e => (e.date as Date).getFullYear())).sort((a, b) => a > b ? -1 : a === b ? 0 : 1).map(d => d.toString());
         allYears.push('No Year');
-        const allTags = _.uniq(this.props.entries.reduce((previousValue, currentValue) => {
+        const allTags = _.uniqWith(this.props.entries.reduce((previousValue, currentValue) => {
             previousValue.push(...currentValue.tags);
             return previousValue;
-        }, [] as string[]));
+        }, [] as string[]), (a, b) => a.toLowerCase() === b.toLowerCase())
+            .sort((a, b) => a.toLowerCase() < b.toLowerCase() ? -1 : a.toLowerCase() === b.toLowerCase() ? 0 : 1);
         allTags.push('No Tag');
 
         this.state = {
@@ -88,7 +89,7 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
 
         for (const entry of this.props.entries) {
             if ((this.state.years.includes('No Year') && !entry.date || entry.date && this.state.years.includes(entry.date.getFullYear().toString())) && // year match
-                (this.state.tags.includes('No Tag') && entry.tags.length <= 0 || entry.tags.length > 0 && entry.tags.some(v => this.state.tags.includes(v))) && // tag match
+                (this.state.tags.includes('No Tag') && entry.tags.length <= 0 || entry.tags.length > 0 && entry.tags.some(v => this.state.tags.map(t => t.toLowerCase()).includes(v.toLowerCase()))) && // tag match
                 (this.state.venues.includes('No Venue') && !entry.venueShort || entry.venueShort && this.state.venues.includes(entry.venueShort)) && // venue match
                 (this.searchKeywords.length === 0 || this.calSimilarity(entry) > 0) // if there is search keywords, similarity > 0
             ) {

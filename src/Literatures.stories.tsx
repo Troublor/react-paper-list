@@ -5,11 +5,11 @@ export default {
     title: 'Literatures'
 };
 
-export const Primary = (): JSX.Element => <Literatures title={'Paper List'} description={'Literature Paper List'} entries={[
+export const Primary = (): JSX.Element => <Literatures title={'Paper List'} description={'Literature Paper List'} enableSearch enableFilter enableSort entries={[
     {
         id: '1',
         title: 'This is the title of the paper',
-        date: new Date(),
+        date: new Date(2020),
         type: 'Conference Paper',
         authors: [
             {
@@ -18,8 +18,8 @@ export const Primary = (): JSX.Element => <Literatures title={'Paper List'} desc
             }
         ],
         venue: 'Full venue',
-        venueShort: 'venue', 
-        tags: ['Tag 1'],
+        venueShort: 'avenue',
+        tags: ['tag 1', 'sdf'],
         awards: ['Distinguished Paper'],
 
         paperUrl: 'https://baidu.com',
