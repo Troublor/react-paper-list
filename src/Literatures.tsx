@@ -9,6 +9,7 @@ interface LiteraturesProp {
     title: string,
     description: string,
     entries: LiteratureEntry[];
+    listHeader: string | null,
 
     enableSearch: boolean;
     enableFilter: boolean;
@@ -35,6 +36,7 @@ interface LiteraturesState {
 
 export class Literatures extends React.Component<LiteraturesProp, LiteraturesState> {
     static defaultProps = {
+        listHeader: 'Literature:',
         enableSearch: false,
         enableFilter: false,
         enableSort: false,
@@ -289,7 +291,7 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
                 {this.props.enableFilter && filter}
                 {this.props.enableSort && sort}
 
-                <h2>Literatures:</h2>
+                {this.props.listHeader ? <h2>{this.props.listHeader}</h2> : null}
                 <List entryList={this.visibleEntries} highlights={this.searchKeywords}/>
             </div>
 
