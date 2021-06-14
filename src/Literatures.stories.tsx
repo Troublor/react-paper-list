@@ -5,7 +5,7 @@ export default {
     title: 'Literatures'
 };
 
-export const Primary = (): JSX.Element => <Literatures title={'Paper List'} description={'Literature Paper List'} enableSearch enableFilter enableSort entries={[
+export const Primary = (): JSX.Element => <Literatures title={'Paper List'} description={'Literature Paper List'} listHeader={'Published Papers:'} enableSearch enableFilter enableSort enableScrollTopButton entries={[
     {
         id: '1',
         title: 'This is the title of the paper',

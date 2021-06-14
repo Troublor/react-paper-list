@@ -297,7 +297,7 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
                 {this.props.listHeader ? <h2>{this.props.listHeader}</h2> : null}
                 <List entryList={this.visibleEntries} highlights={this.searchKeywords}/>
 
-                {this.props.enableScrollTopButton && <ScrollToTop color={'#0d6efd'}/>}
+                {this.props.enableScrollTopButton && <ScrollToTop/>}
             </div>
 
         );
