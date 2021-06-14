@@ -4,6 +4,7 @@ import List from './components/List';
 import MultiChoices from './components/MultiChoices';
 import Nbsp from './components/Nbsp';
 import _ from 'lodash';
+import ScrollToTop from 'react-scroll-to-top';
 
 interface LiteraturesProp {
     title: string,
@@ -14,6 +15,7 @@ interface LiteraturesProp {
     enableSearch: boolean;
     enableFilter: boolean;
     enableSort: boolean;
+    enableScrollTopButton: boolean;
 
     defaultSortCriterion: SortCriteria;
     defaultReverse: boolean;
@@ -42,6 +44,7 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
         enableSort: false,
         defaultSortCriterion: 'title' as SortCriteria,
         defaultReverse: false,
+        enableScrollTopButton: false,
     };
 
     constructor(prop: LiteraturesProp) {
@@ -293,6 +296,8 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
 
                 {this.props.listHeader ? <h2>{this.props.listHeader}</h2> : null}
                 <List entryList={this.visibleEntries} highlights={this.searchKeywords}/>
+
+                {this.props.enableScrollTopButton && <ScrollToTop color={'#0d6efd'}/>}
             </div>
 
         );
