@@ -95,7 +95,7 @@ export class Literatures extends React.Component<LiteraturesProp, LiteraturesSta
         for (const entry of this.props.entries) {
             if ((this.state.years.includes('No Year') && !entry.date || entry.date && this.state.years.includes(entry.date.getFullYear().toString())) && // year match
                 (this.state.tags.includes('No Tag') && entry.tags.length <= 0 || entry.tags.length > 0 && entry.tags.some(v => this.state.tags.map(t => t.toLowerCase()).includes(v.toLowerCase()))) && // tag match
-                (this.state.venues.includes('No Venue') && !entry.venueShort || entry.venueShort && this.state.venues.includes(entry.venueShort)) && // venue match
+                (this.state.venues.includes('No Venue') && !entry.venueShort || entry.venueShort && this.state.venues.map(v=>v.toLowerCase()).includes(entry.venueShort.toLowerCase())) && // venue match
                 (this.searchKeywords.length === 0 || this.calSimilarity(entry) > 0) // if there is search keywords, similarity > 0
             ) {
                 result.push(entry);
